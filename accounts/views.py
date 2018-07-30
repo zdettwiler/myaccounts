@@ -10,7 +10,7 @@ class HomeDashboardView(View):
 	template_name = 'accounts/dashboard.html'
 
 	def get(self, request):
-		transactions = Transaction.objects.all()
+		transactions = Transaction.objects.all().order_by('-date')
 
 		return render(request, self.template_name, {'transactions': transactions, 'title': 'Your Dashboard'})
 

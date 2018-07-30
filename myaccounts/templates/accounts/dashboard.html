@@ -4,11 +4,11 @@
 <table class="table table-hover table-sm">
 	<thead>
 		<tr>
-			<th scope="col">Date</th>
+			<th scope="col" class="width-130">Date</th>
 			<th scope="col">Item</th>
 			<th scope="col">Payee</th>
-			<th scope="col">Category</th>
-			<th scope="col">Amount</th>
+			<th scope="col" class="align-center width-100">Category</th>
+			<th scope="col" class="align-right width-100">Amount</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -17,8 +17,8 @@
 				<td scope="row">{{ transaction.date }}</td>
 				<td>{{ transaction.item }}</td>
 				<td>{{ transaction.payee }}</td>
-				<td>{{ transaction.category }}</td>
-				<td>£{{ transaction.amount }}</td>
+				<td class="align-center">{{ transaction.category }}</td>
+				<td class="align-right">£{{ transaction.amount }}</td>
 			</tr>
 		{% endfor %}
 	</tbody>
