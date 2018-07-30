@@ -1,0 +1,22 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<table>
+	<tr>
+		<th>Date</th>
+		<th>Item</th>
+		<th>Payee</th>
+		<th>Amount</th>
+	</tr>
+
+	{% for transaction in transactions %}
+	<tr>
+		<td>{{ transaction.date }}</td>
+		<td>{{ transaction.item }}</td>
+		<td>{{ transaction.payee }}</td>
+		<td>{{ transaction.category }}</td>
+		<td>{{ transaction.amount }}</td>
+	</tr>
+	{% endfor %}
+</table>
+{% endblock %}
