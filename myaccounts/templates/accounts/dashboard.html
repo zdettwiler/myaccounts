@@ -1,23 +1,26 @@
 {% extends 'layout.html' %}
 
 {% block content %}
-<table>
-	<tr>
-		<th>Date</th>
-		<th>Item</th>
-		<th>Payee</th>
-		<th>Category</th>
-		<th>Amount</th>
-	</tr>
-
-	{% for transaction in transactions %}
-	<tr>
-		<td>{{ transaction.date }}</td>
-		<td>{{ transaction.item }}</td>
-		<td>{{ transaction.payee }}</td>
-		<td>{{ transaction.category }}</td>
-		<td>£{{ transaction.amount }}</td>
-	</tr>
-	{% endfor %}
+<table class="table table-hover table-sm">
+	<thead>
+		<tr>
+			<th scope="col">Date</th>
+			<th scope="col">Item</th>
+			<th scope="col">Payee</th>
+			<th scope="col">Category</th>
+			<th scope="col">Amount</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for transaction in transactions %}
+			<tr>
+				<td scope="row">{{ transaction.date }}</td>
+				<td>{{ transaction.item }}</td>
+				<td>{{ transaction.payee }}</td>
+				<td>{{ transaction.category }}</td>
+				<td>£{{ transaction.amount }}</td>
+			</tr>
+		{% endfor %}
+	</tbody>
 </table>
 {% endblock %}
