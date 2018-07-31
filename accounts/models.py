@@ -13,6 +13,18 @@ class Transaction(models.Model):
 	SAVINGS = 'SVGS'
 	OTHER = 'OTHR'
 	UNDEFINED = 'UNDF'
+	TOTALS = {
+		'REBI': 0,
+		'HSHD': 0,
+		'TRVL': 0,
+		'GVNG': 0,
+		'FOOD': 0,
+		'LESR': 0,
+		'BOOK': 0,
+		'SVGS': 0,
+		'OTHR': 0,
+		'UNDF': 0,
+	}
 	CATEGORIES = (
 		(RENTBILLS, 'Rent/Bills'),
 		(HOUSEHOLD, 'Household'),
