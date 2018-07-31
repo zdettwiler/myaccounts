@@ -4,13 +4,14 @@ from django.views import View
 from django.contrib import messages
 from .forms import AddTransactionForm
 from .models import Transaction
+from datetime import datetime
 
 
 class HomeDashboardView(View):
 	template_name = 'accounts/dashboard.html'
 
-	def get(self, request):
-		transactions = Transaction.objects.all().order_by('-date')
+	def get(self, request, month=datetime.now().month, year=datetime.now().year):
+		transactions = Transaction.objects.filter(date__year=year).filter(date__month=month).order_by('-date')
 
 		return render(request, self.template_name, {'transactions': transactions, 'title': 'Your Dashboard'})
 
