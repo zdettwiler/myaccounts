@@ -50,14 +50,20 @@ class BudgetView(View):
 		categories_expenditure = Category.objects.filter(inc_exp=False)
 		total_income = categories_income.aggregate(Sum('allowance'))['allowance__sum']
 		total_expenditure = categories_expenditure.aggregate(Sum('allowance'))['allowance__sum']
-		form = AddCategoryForm()
+
+		forms_expenditure = []
+		for categ in categories_expenditure:
+			forms_expenditure.append(AddCategoryForm(instance=categ))
+
+		form_add_category = AddCategoryForm()
 
 		return render(request, self.template_name, {
 			'categories_income': categories_income,
 			'categories_expenditure': categories_expenditure,
 			'total_income': total_income,
 			'total_expenditure': total_expenditure,
-			'form': form,
+			'forms_expenditure': forms_expenditure,
+			'form_add_category': form_add_category,
 			'title': 'Your Budget'
 		})
 
@@ -69,4 +75,16 @@ class AddCategoryView(View):
 			form.save()
 
 		messages.add_message(request, messages.SUCCESS, 'You have created a new category!')
+		return redirect('budget')
+
+class UpdateCategoryView(View):
+	def post(self, request, categ_id):
+		categ = Category.objects.get(pk=categ_id)
+		form = AddCategoryForm(request.POST, instance=categ)
+		if form.is_valid():
+			form.save()
+			messages.add_message(request, messages.SUCCESS, "You have update the 'name' category!")
+		else:
+			messages.add_message(request, messages.DANGER, "Error updating the 'name' category!")
+
 		return redirect('budget')

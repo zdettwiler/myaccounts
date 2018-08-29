@@ -23,6 +23,20 @@
 <h4>Expenditure (£{{ total_expenditure|intcomma }})</h4>
 <table class="table table-hover table-sm">
 	<tbody>
+		{% for form in forms_expenditure %}
+		<form action="{% url 'update_category' categ_id=form.instance.id %}" method="post">
+			{% csrf_token %}
+			<tr>
+				<td class="width-130" scope="row">{{ form.label }}</td>
+				<td class="width-100">{{ form.label_short }}</td>
+				<td class="width-100">{{ form.allowance }}</td>
+				<td><div class="col-auto">{{ form.inc_exp }}{{ form.inc_exp.label_tag }}</div></td>
+				<td><input type="submit" value="Update" class="btn btn-secondary"/></td>
+			</tr>
+		</form>
+		{% endfor %}
+	</tbody>
+	<!-- <tbody>
 		{% for category_expenditure in categories_expenditure %}
 			<tr>
 				<td class="width-130" scope="row">{{ category_expenditure.label }}</td>
@@ -32,23 +46,23 @@
 				<td></td>
 			</tr>
 		{% endfor %}
-	</tbody>
+	</tbody> -->
 </table>
 
 <table class="table table-hover table-sm">
 	<form action="{% url 'add_category' %}" method="post">
 		{% csrf_token %}
 
-		{{ form.non_field_errors }}
+		{{ form_add_category.non_field_errors }}
 
-		{{ form.source.errors }}
-		{{ form.source }}
+		{{ form_add_category.source.errors }}
+		{{ form_add_category.source }}
 
-		<td class="width-130" scope="row">{{ form.label }}</td>
-		<td class="width-100">{{ form.label_short }}</td>
-		<td class="width-100">{{ form.allowance }}</td>
-		<td><div class="col-auto">{{ form.inc_exp }}{{ form.inc_exp.label_tag }}</div></td>
-		<td><input type="submit" value="New Category" class="btn btn-secondary"/></td>
+		<td class="width-130" scope="row">{{ form_add_category.label }}</td>
+		<td class="width-100">{{ form_add_category.label_short }}</td>
+		<td class="width-100">{{ form_add_category.allowance }}</td>
+		<td><div class="col-auto">{{ form_add_category.inc_exp }}{{ form_add_category.inc_exp.label_tag }}</div></td>
+		<td><input type="submit" value="Add" class="btn btn-secondary"/></td>
 	</form>
 </table>
 {% endblock %}

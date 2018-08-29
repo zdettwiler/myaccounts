@@ -63,3 +63,8 @@ class AddCategoryForm(forms.ModelForm):
 	class Meta:
 		model = Category
 		fields = '__all__'
+
+class UpdateCategoryForm(AddCategoryForm):
+	class Meta:
+		model = Category
+		fields = '__all__'
