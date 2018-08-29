@@ -3,8 +3,8 @@ from django.http import HttpResponse
 from django.views import View
 from django.contrib import messages
 from django.db.models import Sum
-from .forms import AddTransactionForm
-from .models import Transaction
+from .forms import AddTransactionForm, AddCategoryForm
+from .models import Transaction, Category
 from datetime import datetime
 
 
@@ -40,3 +40,33 @@ class AddTransactionView(View):
 
 		messages.add_message(request, messages.SUCCESS, 'You have created a new transaction!')
 		return redirect('dashboard')
+
+
+class BudgetView(View):
+	template_name = 'accounts/budget.html'
+
+	def get(self, request):
+		categories_income = Category.objects.filter(inc_exp=True)
+		categories_expenditure = Category.objects.filter(inc_exp=False)
+		total_income = categories_income.aggregate(Sum('allowance'))['allowance__sum']
+		total_expenditure = categories_expenditure.aggregate(Sum('allowance'))['allowance__sum']
+		form = AddCategoryForm()
+
+		return render(request, self.template_name, {
+			'categories_income': categories_income,
+			'categories_expenditure': categories_expenditure,
+			'total_income': total_income,
+			'total_expenditure': total_expenditure,
+			'form': form,
+			'title': 'Your Budget'
+		})
+
+
+class AddCategoryView(View):
+	def post(self, request):
+		form = AddCategoryForm(request.POST)
+		if form.is_valid():
+			form.save()
+
+		messages.add_message(request, messages.SUCCESS, 'You have created a new category!')
+		return redirect('budget')

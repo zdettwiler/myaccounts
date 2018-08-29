@@ -46,3 +46,9 @@ class Transaction(models.Model):
 
 	def __str__(self):
 		return self.item
+
+class Category(models.Model):
+	label = models.CharField(max_length=50, blank=False)
+	label_short = models.CharField(max_length=5, blank=False)
+	allowance = models.DecimalField(max_digits=8, decimal_places=2, blank=False)
+	inc_exp = models.BooleanField(default=False)

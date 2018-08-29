@@ -17,6 +17,7 @@
 			<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
 				<div class="navbar-nav mr-auto">
 					<a class="nav-item nav-link" href="{% url 'dashboard' %}">Dashboard</a>
+					<a class="nav-item nav-link" href="{% url 'budget' %}">Budget</a>
 				</div>
 				<div class="navbar-nav">
 					<a class="nav-item nav-link" href="{% url 'add_transaction' %}">New Transaction</a>
@@ -33,8 +34,10 @@
 				{% endfor %}
 			{% endif %}
 
-			{% block content %}
-			{% endblock %}
+			<div class="content-section">
+				{% block content %}
+				{% endblock %}
+			</div>
 		</div>
 
 

@@ -1,5 +1,7 @@
 {% extends 'layout.html' %}
 
+{% block title %}{{ title }}{% endblock %}
+
 {% block content %}
 {% for categ, value in totals.items %}
 	<p>{{ categ }}: {{ value }}</p>
